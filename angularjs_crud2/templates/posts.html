@@ -1,0 +1,200 @@
+<style>
+    .table_head{
+        background-color: #3276B1;
+    }
+</style>
+
+<div class="row">
+    <div class="col-lg-12 margin-tb">
+        <div class="pull-left">
+            <h2 style="color:#3276B1; text-align: center;">
+                <u>
+                    AngularJS Simple CRUD Application - The Code Behavior
+                </u>
+                </h2>
+                <div class="row upper-part mb-3" style="padding-top:30px;">
+                    <div class="col-sm-4">
+
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="search" placeholder="Search here..." name="search" ng-model="search" title="search" >
+                    </div>
+                    <div class="col-sm-2" >
+                        <button type="button" class="btn btn-success" ng-click="searchAction()" > Search </button>
+                    </div>
+                   
+                    <div class="col-sm-2 float-end" >
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"  data-bs-target="#staticBackdrop" title="Add new" > Add New </button>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <table class="table table-bordered pagin-table">
+            <thead>
+                <tr class="table_head" >
+                    <th>No</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th width="220px">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="value in data">
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ value.title }}</td>
+                    <td>{{ value.description }}</td>
+                    <td>
+                        <button
+                            type="button"
+                            ng-click="edit(value.id)"
+                            class="btn btn-primary"
+                            data-bs-toggle="modal"
+                            data-bs-target="#edit-data"
+                        > Edit</button>
+                        
+                        <button ng-click="remove(value,$index)" class="btn btn-danger">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- Edit Modal -->
+    <div
+        class="modal fade"
+        id="edit-data"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+    >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form
+                    method="POST"
+                    name="editItem"
+                    role="form"
+                    ng-submit="saveEdit()"
+                >
+                    <input
+                        ng-model="form.id"
+                        type="hidden"
+                        placeholder="Name"
+                        name="name"
+                        class="form-control"
+                    >
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Edit Post</h5>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div>
+                                <strong>Title :</strong>
+                                <div class="form-group">
+                                    <input
+                                        ng-model="form.title"
+                                        type="text"
+                                        placeholder="Name"
+                                        name="title"
+                                        class="form-control"
+                                        required
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div>
+                                <strong>Description :</strong>
+                                <div class="form-group">
+                                    <textarea ng-model="form.description" class="form-control" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" ng-disabled="editItem.$invalid" class="btn btn-primary create-crud">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Add Form modal -->
+    <div
+        class="modal fade"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+    >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form
+                    method="POST"
+                    name="addItem"
+                    role="form"
+                    ng-submit="saveAdd()"
+                >
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Add Post</h5>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div>
+                                <strong>Title :</strong>
+                                <div class="form-group">
+                                    <input
+                                        ng-model="add.title"
+                                        type="text"
+                                        placeholder="Name"
+                                        name="title"
+                                        class="form-control"
+                                        required
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div>
+                                <strong>Description :</strong>
+                                <div class="form-group">
+                                    <textarea ng-model="add.description" class="form-control" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" ng-disabled="addItem.$invalid" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
